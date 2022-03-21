@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /api/node_modules
+/api/tmp
 /frontend/.next
 /frontend/node_modules
 
