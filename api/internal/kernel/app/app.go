@@ -2,14 +2,22 @@ package app
 
 import (
 	"api/internal/configs"
+	"github.com/gorilla/mux"
 	"net/http"
 )
 
 type App struct {
-	Config *configs.Config
+	configs *configs.Config
+	router  *mux.Router
+}
+
+func (a App) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
+	a.router.ServeHTTP(writer, request)
 }
 
 func Run() error {
-	conf := configs.Run()
-	return http.ListenAndServe(conf.Port, nil)
+	app := &App{
+		configs: configs.Run(),
+	}
+	return http.ListenAndServe(app.configs.Port, app)
 }
