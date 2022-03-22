@@ -1,4 +1,4 @@
-package apiserver
+package main
 
 import (
 	"api/internal/kernel/app"

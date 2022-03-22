@@ -24,6 +24,7 @@ services:
     volumes:
       - ./api:/usr/src/app
       - ${GOPATH}/pkg:/go/pkg
+    command: air -c .air.toml && migrate && seeder
     links:
       - api_db
     depends_on:

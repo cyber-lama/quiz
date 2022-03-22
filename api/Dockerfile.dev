@@ -13,5 +13,3 @@ RUN curl -L https://github.com/danvergara/seeder/releases/download/v0.3.0/seeder
 RUN chown ${docker_user}:${docker_user} /home/${docker_user}
 
 WORKDIR /usr/src/app
-
-CMD ["air", "migrate", "seeder"]
