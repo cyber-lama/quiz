@@ -25,15 +25,17 @@ services:
       - ./api:/usr/src/app
       - ${GOPATH}/pkg:/go/pkg
     command: air -c .air.toml && migrate && seeder
+    ports:
+      - "2345:2345"
     links:
-      - api_db
+      - db
     depends_on:
-      - api_db
+      - db
     restart: unless-stopped
     networks:
       - docker-network
 
-  api_db:
+  db:
     image: postgres:14.1-alpine
     container_name: docker-postgres
     environment:

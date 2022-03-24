@@ -18,7 +18,7 @@ func (a App) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 }
 
 func Init() *App {
-	conf := configs.Run()
+	conf := configs.Init()
 	return &App{
 		configs: conf,
 		db:      database.Connect(conf.DBUrl),

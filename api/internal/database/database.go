@@ -1,7 +1,6 @@
 package database
 
 import (
-	"fmt"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 	"log"
@@ -12,9 +11,7 @@ type DB struct {
 }
 
 func Connect(DBUrl string) *DB {
-	fmt.Println(DBUrl)
-	db, err := sqlx.Connect("postgres",
-		DBUrl)
+	db, err := sqlx.Connect("postgres", DBUrl)
 	if err != nil {
 		log.Fatal(err)
 	}

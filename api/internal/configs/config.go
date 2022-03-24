@@ -12,7 +12,7 @@ type Config struct {
 	DBUrl    string
 }
 
-func Run() *Config {
+func Init() *Config {
 	return &Config{
 		Port:     fmt.Sprintf(":%s", os.Getenv("API_PORT")),
 		LogLevel: os.Getenv("LOG_LEVEL"),
