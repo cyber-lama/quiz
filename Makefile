@@ -30,7 +30,9 @@ test:
 
 migrate:
 	docker-compose exec api migrate create -ext sql -dir db/migrations ${name}
+
 migrate-up:
 	docker-compose exec api migrate -database "postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):5432/$(DB_NAME)?sslmode=disable" -path db/migrations up
+
 migrate-down:
 	docker-compose exec api migrate -database "postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):5432/$(DB_NAME)?sslmode=disable" -path db/migrations down ${step}
