@@ -2,6 +2,7 @@ package app
 
 import (
 	"api/internal/configs"
+	"api/internal/database"
 	"github.com/gorilla/mux"
 	"net/http"
 )
@@ -9,15 +10,17 @@ import (
 type App struct {
 	configs *configs.Config
 	router  *mux.Router
+	db      *database.DB
 }
 
 func (a App) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 	a.router.ServeHTTP(writer, request)
 }
 
-func Run() error {
-	app := &App{
-		configs: configs.Run(),
+func Init() *App {
+	conf := configs.Run()
+	return &App{
+		configs: conf,
+		db:      database.Connect(conf.DBUrl),
 	}
-	return http.ListenAndServe(app.configs.Port, app)
 }
