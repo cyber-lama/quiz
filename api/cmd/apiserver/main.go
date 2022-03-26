@@ -14,8 +14,5 @@ func init() {
 }
 
 func main() {
-	err := app.Init()
-	if err != nil {
-		return
-	}
+	app.Init()
 }
