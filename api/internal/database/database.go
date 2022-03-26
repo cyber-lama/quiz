@@ -1,24 +1,34 @@
 package database
 
 import (
+	"api/internal/exceptions"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
-	"log"
+	"time"
 )
 
 type DB struct {
 	*sqlx.DB
 }
 
-func Connect(DBUrl string) *DB {
-	db, err := sqlx.Connect("postgres", DBUrl)
-	if err != nil {
-		log.Fatal(err)
-	}
-	if err = db.Ping(); err != nil {
-		log.Fatal(err)
-	}
-	return &DB{
-		db,
+func Connect(DBUrl string) (*DB, error) {
+	// цикл подключения к БД. Пытаемся 3 раза, если не удалось подсоединиться с первого раза.
+	var err error
+	var db *sqlx.DB
+	tries := 0
+	for {
+		if tries > 2 {
+			err = exceptions.NewConnectionErr(err)
+			return nil, err
+		}
+		db, err = sqlx.Connect("postgres", DBUrl)
+		if err != nil {
+			// error of connect to db, wait 1s and try to reconnect
+			time.Sleep(1 * time.Second)
+			tries++
+			continue
+		} else {
+			return &DB{db}, nil
+		}
 	}
 }

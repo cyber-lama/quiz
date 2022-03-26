@@ -53,6 +53,7 @@ func Init(level string) *Logger {
 	return &Logger{}
 }
 
+// Struct Logger print struct property
 func (l *Logger) Struct(s interface{}) {
 	fmt.Printf("Struct: %#v\n", s)
 }

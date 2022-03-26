@@ -1,10 +1,11 @@
-package app
+package kernel
 
 import (
 	"api/internal/configs"
 	"api/internal/database"
 	"api/internal/logger"
 	"github.com/gorilla/mux"
+	"log"
 	"net/http"
 )
 
@@ -20,11 +21,20 @@ func (a App) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 }
 
 func Init() *App {
+	// Try to get var from .env
 	conf := configs.Init()
-	log := logger.Init(conf.LogLevel)
+	// Try to plug logr
+	logr := logger.Init(conf.LogLevel)
+	// Try to connect database
+	db, err := database.Connect(conf.DBUrl)
+	if err != nil {
+		//if errors.As(err, &exceptions.ConnectionDBErr{}) {
+		//}
+		log.Fatal(err)
+	}
 	return &App{
 		configs: conf,
-		logger:  log,
-		db:      database.Connect(conf.DBUrl),
+		logger:  logr,
+		db:      db,
 	}
 }
