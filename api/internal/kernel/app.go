@@ -4,16 +4,24 @@ import (
 	"api/internal/configs"
 	"api/internal/database"
 	"api/internal/logger"
-	"github.com/gorilla/mux"
+	"api/internal/router"
 	"log"
 	"net/http"
 )
 
 type App struct {
 	configs *configs.Config
-	router  *mux.Router
-	db      *database.DB
+	router  *router.Router
+	db      *database.Database
 	logger  *logger.Logger
+}
+
+func (a App) Run() {
+	err := http.ListenAndServe(a.configs.Port, a.router)
+	if err != nil {
+		a.logger.Fatal(err)
+	}
+	a.logger.Infof("server start on %s port", a.configs.Port)
 }
 
 func (a App) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
@@ -21,20 +29,24 @@ func (a App) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 }
 
 func Init() *App {
-	// Try to get var from .env
-	conf := configs.Init()
-	// Try to plug logr
-	logr := logger.Init(conf.LogLevel)
+	// Get var from .env
+	configsInit := configs.Init()
+	// Plug logger
+	loggerInit := logger.Init(configsInit.LogLevel)
 	// Try to connect database
-	db, err := database.Connect(conf.DBUrl)
+	dbInit, err := database.Connect(configsInit.DBUrl)
 	if err != nil {
 		//if errors.As(err, &exceptions.ConnectionDBErr{}) {
 		//}
 		log.Fatal(err)
 	}
+	// Init router with sum settings
+	routerInit := router.Init()
+
 	return &App{
-		configs: conf,
-		logger:  logr,
-		db:      db,
+		configs: configsInit,
+		router:  routerInit,
+		logger:  loggerInit,
+		db:      dbInit,
 	}
 }

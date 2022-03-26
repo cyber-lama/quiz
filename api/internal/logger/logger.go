@@ -35,22 +35,20 @@ func logLevelFormat(level string) logrus.Level {
 	case "panic":
 		return 0
 	default:
-		return 7
+		return 1
 	}
 }
 
 func Init(level string) *Logger {
-	if lvl := logLevelFormat(level); lvl < 7 {
-		log := logrus.New()
-		log.SetLevel(lvl)
-		log.SetFormatter(&logrus.TextFormatter{
-			ForceColors:     true,
-			FullTimestamp:   true,
-			TimestampFormat: "01/02 15:04:05",
-		})
-		return &Logger{log}
-	}
-	return &Logger{}
+	lvl := logLevelFormat(level)
+	log := logrus.New()
+	log.SetLevel(lvl)
+	log.SetFormatter(&logrus.TextFormatter{
+		ForceColors:     true,
+		FullTimestamp:   true,
+		TimestampFormat: "01/02 15:04:05",
+	})
+	return &Logger{log}
 }
 
 // Struct Logger print struct property

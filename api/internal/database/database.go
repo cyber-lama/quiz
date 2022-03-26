@@ -7,11 +7,11 @@ import (
 	"time"
 )
 
-type DB struct {
+type Database struct {
 	*sqlx.DB
 }
 
-func Connect(DBUrl string) (*DB, error) {
+func Connect(DBUrl string) (*Database, error) {
 	// цикл подключения к БД. Пытаемся 3 раза, если не удалось подсоединиться с первого раза.
 	var err error
 	var db *sqlx.DB
@@ -28,7 +28,7 @@ func Connect(DBUrl string) (*DB, error) {
 			tries++
 			continue
 		} else {
-			return &DB{db}, nil
+			return &Database{db}, nil
 		}
 	}
 }
