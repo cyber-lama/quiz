@@ -2,8 +2,10 @@ package database
 
 import (
 	"api/internal/exceptions"
+	"fmt"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
+	"log"
 	"time"
 )
 
@@ -30,5 +32,13 @@ func Connect(DBUrl string) (*Database, error) {
 		} else {
 			return &Database{db}, nil
 		}
+	}
+}
+
+func (d *Database) CloseDBConnect() {
+	fmt.Println("close")
+	err := d.Close()
+	if err != nil {
+		log.Fatal(err)
 	}
 }

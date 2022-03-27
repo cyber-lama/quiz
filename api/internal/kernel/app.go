@@ -5,8 +5,8 @@ import (
 	"api/internal/database"
 	"api/internal/logger"
 	"api/internal/router"
-	"log"
 	"net/http"
+	"time"
 )
 
 type App struct {
@@ -16,37 +16,48 @@ type App struct {
 	logger  *logger.Logger
 }
 
-func (a App) Run() {
-	err := http.ListenAndServe(a.configs.Port, a.router)
-	if err != nil {
-		a.logger.Fatal(err)
-	}
-	a.logger.Infof("server start on %s port", a.configs.Port)
-}
-
 func (a App) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 	a.router.ServeHTTP(writer, request)
 }
 
-func Init() *App {
+func (a App) Run() error {
+	defer a.db.CloseDBConnect()
+	server := &http.Server{
+		Addr:           a.configs.Port,
+		Handler:        a.router,
+		ReadTimeout:    10 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		MaxHeaderBytes: 1 << 20,
+	}
+
+	if err := server.ListenAndServe(); err != nil {
+		return err
+	}
+	return nil
+}
+
+// Init a function that initializes
+//all the important components of the application:
+//routing, configuration from the env file,
+//routing and processing http requests,
+//connecting to the database
+func Init() (*App, error) {
 	// Get var from .env
-	configsInit := configs.Init()
+	c := configs.Init()
 	// Plug logger
-	loggerInit := logger.Init(configsInit.LogLevel)
+	l := logger.Init(c.LogLevel)
 	// Try to connect database
-	dbInit, err := database.Connect(configsInit.DBUrl)
+	db, err := database.Connect(c.DBUrl)
 	if err != nil {
-		//if errors.As(err, &exceptions.ConnectionDBErr{}) {
-		//}
-		log.Fatal(err)
+		return nil, err
 	}
 	// Init router with sum settings
-	routerInit := router.Init()
+	r := router.Init()
 
 	return &App{
-		configs: configsInit,
-		router:  routerInit,
-		logger:  loggerInit,
-		db:      dbInit,
-	}
+		configs: c,
+		router:  r,
+		logger:  l,
+		db:      db,
+	}, nil
 }

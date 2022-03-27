@@ -46,6 +46,15 @@ func (r *Router) logRequest(next http.Handler) http.Handler {
 		rw := &responseWriter{w, http.StatusOK}
 		next.ServeHTTP(rw, r)
 
+		var reqBody interface{}
+		err := json.NewDecoder(r.Body).Decode(reqBody)
+		if err != nil {
+			log.Error(err)
+		} else {
+			log.Info(reqBody)
+		}
+		log.Info(r.Method)
+
 		var level logrus.Level
 		switch {
 		case rw.code >= 500:
