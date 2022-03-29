@@ -7,6 +7,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
+	"io/ioutil"
 	"net/http"
 	"time"
 )
@@ -40,20 +41,25 @@ func (r *Router) logRequest(next http.Handler) http.Handler {
 			"remote_addr": r.RemoteAddr,
 			"request_id":  r.Context().Value(ctxKeyRequestID),
 		})
-		log.Infof("started %s %s", r.Method, r.RequestURI)
+
+		var payload interface{}
+		if r.Method == http.MethodPost {
+			b, err := ioutil.ReadAll(r.Body)
+			if err != nil {
+				log.Error(err)
+			}
+			payload = b
+		} else if r.Method == http.MethodGet {
+			payload = r.URL.Query().Encode()
+		}
+
+		log.Infof("--------------------------------")
+		log.Infof("started %s %s, with payload: %s",
+			r.Method, r.RequestURI, payload)
 
 		start := time.Now()
 		rw := &responseWriter{w, http.StatusOK}
 		next.ServeHTTP(rw, r)
-
-		var reqBody interface{}
-		err := json.NewDecoder(r.Body).Decode(reqBody)
-		if err != nil {
-			log.Error(err)
-		} else {
-			log.Info(reqBody)
-		}
-		log.Info(r.Method)
 
 		var level logrus.Level
 		switch {
@@ -71,6 +77,7 @@ func (r *Router) logRequest(next http.Handler) http.Handler {
 			http.StatusText(rw.code),
 			time.Now().Sub(start),
 		)
+		log.Infof("--------------------------------")
 	})
 }
 
@@ -78,6 +85,7 @@ func (r *Router) configureRouter() {
 	r.Use(r.setRequestID)
 	r.Use(r.logRequest)
 	r.HandleFunc("/test", r.handleUsersCreate()).Methods("POST")
+	r.HandleFunc("/test", r.handleUsersCreate()).Methods("GET")
 }
 
 func (r *Router) respond(w http.ResponseWriter, req *http.Request, code int, data interface{}) {

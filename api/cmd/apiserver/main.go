@@ -21,11 +21,9 @@ func main() {
 		if errors.As(err, &exceptions.ConnectionDBErr{}) {
 			log.Fatal(err.Error())
 		} else {
-			log.Fatalf("Ошибка инициализации приложения %s", err)
+			log.Fatalf("Application initialization error %s", err)
 		}
 	}
 
-	if err = server.Run(); err != nil {
-		log.Fatalf("Failed to listen and serve: %+v", err)
-	}
+	server.Run()
 }

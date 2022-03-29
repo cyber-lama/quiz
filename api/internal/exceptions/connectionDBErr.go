@@ -5,7 +5,7 @@ type ConnectionDBErr struct {
 }
 
 func NewConnectionErr(err error) ConnectionDBErr {
-	b := &BaseErr{Msg: "Не удалось подключиться к базе данных", Err: err}
+	b := &BaseErr{Msg: "Failed to connect to database", Err: err}
 	return ConnectionDBErr{
 		b,
 	}

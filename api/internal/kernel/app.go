@@ -5,7 +5,10 @@ import (
 	"api/internal/database"
 	"api/internal/logger"
 	"api/internal/router"
+	"context"
 	"net/http"
+	"os"
+	"os/signal"
 	"time"
 )
 
@@ -16,24 +19,38 @@ type App struct {
 	logger  *logger.Logger
 }
 
-func (a App) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
+func (a *App) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 	a.router.ServeHTTP(writer, request)
 }
 
-func (a App) Run() error {
-	defer a.db.CloseDBConnect()
-	server := &http.Server{
+func (a *App) Run() {
+	httpServer := &http.Server{
 		Addr:           a.configs.Port,
 		Handler:        a.router,
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
+	go func() {
+		defer a.db.CloseDBConnect()
+		if err := httpServer.ListenAndServe(); err != nil {
+			a.logger.Fatalf("Failed to listen and serve: %+v", err)
+		}
+	}()
 
-	if err := server.ListenAndServe(); err != nil {
-		return err
+	// on ctrl+c stop server
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, os.Interrupt)
+
+	<-quit
+
+	ctx, shutdown := context.WithTimeout(context.Background(), 5*time.Second)
+	defer shutdown()
+	defer a.db.CloseDBConnect()
+	err := httpServer.Shutdown(ctx)
+	if err != nil {
+		a.logger.Errorf("Failed shutdown serve: %+v", err)
 	}
-	return nil
 }
 
 // Init a function that initializes

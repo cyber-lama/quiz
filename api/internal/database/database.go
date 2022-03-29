@@ -36,7 +36,7 @@ func Connect(DBUrl string) (*Database, error) {
 }
 
 func (d *Database) CloseDBConnect() {
-	fmt.Println("close")
+	fmt.Println("close db connect")
 	err := d.Close()
 	if err != nil {
 		log.Fatal(err)
