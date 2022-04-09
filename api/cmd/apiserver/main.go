@@ -2,7 +2,7 @@ package main
 
 import (
 	"api/internal/exceptions"
-	app "api/internal/kernel"
+	"api/internal/server"
 	"errors"
 	"github.com/joho/godotenv"
 	"log"
@@ -16,7 +16,7 @@ func init() {
 }
 
 func main() {
-	server, err := app.Init()
+	_, err := server.Init()
 	if err != nil {
 		if errors.As(err, &exceptions.ConnectionDBErr{}) {
 			log.Fatal(err.Error())
@@ -24,6 +24,4 @@ func main() {
 			log.Fatalf("Application initialization error %s", err)
 		}
 	}
-
-	server.Run()
 }

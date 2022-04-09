@@ -21,6 +21,8 @@ services:
         docker_user: ${DOCKER_USER}
     container_name: docker-api
     user: ${DOCKER_USER}
+    ports:
+      - "2345:2345"
     volumes:
       - ./api:/usr/src/app
       - ${GOPATH}/pkg:/go/pkg

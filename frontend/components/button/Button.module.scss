@@ -1,0 +1,51 @@
+@use "../../styles/variables";
+
+.button {
+	display: inline-block;
+	box-sizing: border-box;
+	padding: 10px;
+	cursor: pointer;
+	text-align: center;
+	border: 0;
+	border-radius: 5px;
+	font-size: 14px;
+	transition: variables.$transition;
+}
+
+.primary {
+	color: var(--white);
+	background-color: var(--primary);
+
+	svg {
+		color: var(--white);
+	}
+
+	&:hover {
+		background-color: var(--primary-hover);
+	}
+}
+
+.ghost {
+	color: var(--black);
+	background: none;
+	border: 1px solid var(--gray-light);
+
+	svg {
+		color: var(--black);
+	}
+
+	&:hover {
+		color: var(--white);
+		background-color: var(--primary-hover);
+	}
+}
+
+.arrow {
+	display: inline-block;
+	margin-left: 10px;
+
+	&__down {
+		transition: variables.$transition;
+		transform: rotate(90deg);
+	}
+}

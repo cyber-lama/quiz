@@ -1,3 +1,2 @@
-import {Htag} from "./typography/htag/Htag";
-
-export default Htag;
+export * from "./typography/htag/Htag";
+export * from "./button/Button";

@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import axios from "axios";
+import {Button,Htag} from "../components";
 
 export default function Home():JSX.Element {
     useEffect(() => {
@@ -10,6 +11,14 @@ export default function Home():JSX.Element {
         })
     }, []);
     return (
-        <p>test</p>
+        <>
+            <Htag tag={'h1'}>Test</Htag>
+            <Button appearance={'primary'} className={"test"} arrow={'down'}>
+                primary
+            </Button>
+            <Button appearance={'ghost'} arrow={"right"}>
+                ghost
+            </Button>
+        </>
     );
 }

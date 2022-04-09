@@ -3,7 +3,6 @@ package router
 import (
 	"api/internal/logger"
 	"context"
-	"encoding/json"
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
@@ -84,22 +83,4 @@ func (r *Router) logRequest(next http.Handler) http.Handler {
 func (r *Router) configureRouter() {
 	r.Use(r.setRequestID)
 	r.Use(r.logRequest)
-	r.HandleFunc("/test", r.handleUsersCreate()).Methods("POST")
-	r.HandleFunc("/test", r.handleUsersCreate()).Methods("GET")
-}
-
-func (r *Router) respond(w http.ResponseWriter, req *http.Request, code int, data interface{}) {
-	w.WriteHeader(code)
-	if data != nil {
-		err := json.NewEncoder(w).Encode(data)
-		if err != nil {
-			return
-		}
-	}
-}
-
-func (r *Router) handleUsersCreate() func(http.ResponseWriter, *http.Request) {
-	return func(w http.ResponseWriter, req *http.Request) {
-		r.respond(w, req, http.StatusCreated, "test")
-	}
 }
