@@ -5,6 +5,9 @@ import "@fontsource/roboto";
 
 function MyApp({ Component, pageProps }: AppProps):JSX.Element {
   return <>
+      <title>
+          Онлайн тестирование
+      </title>
       <Component {...pageProps} />
   </>;
 }

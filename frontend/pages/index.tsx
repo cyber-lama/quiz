@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import axios from "axios";
-import {Button,Htag} from "../components";
+import {Button,Htag, Ptag} from "../components";
 
 export default function Home():JSX.Element {
     useEffect(() => {
@@ -19,6 +19,9 @@ export default function Home():JSX.Element {
             <Button appearance={'ghost'} arrow={"right"}>
                 ghost
             </Button>
+            <Ptag size="l">Большой</Ptag>
+            <Ptag size="m">Средний</Ptag>
+            <Ptag size="s">Маленький</Ptag>
         </>
     );
 }

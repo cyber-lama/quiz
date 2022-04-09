@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use "../../styles/variables" as v;
 
 .button {
 	display: inline-block;
@@ -9,7 +9,7 @@
 	border: 0;
 	border-radius: 5px;
 	font-size: 14px;
-	transition: variables.$transition;
+	transition: v.$transition;
 }
 
 .primary {
@@ -17,7 +17,7 @@
 	background-color: var(--primary);
 
 	svg {
-		color: var(--white);
+		fill: var(--white);
 	}
 
 	&:hover {
@@ -31,12 +31,16 @@
 	border: 1px solid var(--gray-light);
 
 	svg {
-		color: var(--black);
+		fill: var(--black);
 	}
 
 	&:hover {
 		color: var(--white);
 		background-color: var(--primary-hover);
+
+		svg {
+			fill: var(--white);
+		}
 	}
 }
 
@@ -45,7 +49,7 @@
 	margin-left: 10px;
 
 	&__down {
-		transition: variables.$transition;
+		transition: v.$transition;
 		transform: rotate(90deg);
 	}
 }
