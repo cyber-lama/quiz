@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
-import axios from "axios";
+import React, {useState} from "react";
 import {Button, Htag, Ptag, Rating, Tag} from "../components";
+import {WithMainLayout} from "../layouts";
 
-export default function Home():JSX.Element {
-    const [state, setState] = useState(4)
+const Home = ():JSX.Element => {
+    const [state, setState] = useState(4);
     return (
         <>
             <Htag tag={'h1'}>Test</Htag>
@@ -23,7 +23,9 @@ export default function Home():JSX.Element {
             <Tag size="m" color='green'>green</Tag>
             <Tag size="m" color='primary'>primary</Tag>
 
-            <Rating isEditable={true} rating={state} setRating={setState}/>
+            <Rating isEditable rating={state} setRating={setState}/>
         </>
     );
-}
+};
+
+export default WithMainLayout(Home);
