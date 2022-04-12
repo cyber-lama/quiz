@@ -1,8 +1,19 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Htag, Ptag, Rating, Tag} from "../components";
 import {WithMainLayout} from "../layouts";
+import {GetStaticProps} from "next";
+import axios from "axios";
+import {MenuItem} from "../interfaces/menu.interface";
 
-const Home = ():JSX.Element => {
+const Home = ({menu}:HomeProps):JSX.Element => {
+    // const [menuState, setMenuState] = useState<MenuItem[]>();
+    // useEffect(() => {
+    //     axios.get('https://jsonplaceholder.typicode.com/users').then(res => {
+    //         setMenuState(res.data);
+    //     }).catch((error)=> {
+    //         console.log(error);
+    //     });
+    // }, []);
     const [state, setState] = useState(4);
     return (
         <>
@@ -24,8 +35,25 @@ const Home = ():JSX.Element => {
             <Tag size="m" color='primary'>primary</Tag>
 
             <Rating isEditable rating={state} setRating={setState}/>
+
+            <ul className={'test-sp'}>
+                {menu?.map(item => <li key={item.id}>{item.name}</li>)}
+            </ul>
         </>
     );
 };
 
 export default WithMainLayout(Home);
+
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+    const { data: menu } = await axios.get<MenuItem[]>("https://jsonplaceholder.typicode.com/users");
+    return {
+        props: {
+            menu
+        }
+    };
+};
+
+interface HomeProps extends Record<string, unknown> {
+    menu: MenuItem[];
+}
