@@ -6,6 +6,7 @@ import {PostItem} from "../../interfaces/post.interface";
 import {ParsedUrlQuery} from "querystring";
 
 const Post = ({post}:PostProps):JSX.Element => {
+    if(!post) return <p>Ожидайте загрузки</p>;
     return (
        <>
            <p>{post?.title}</p>
