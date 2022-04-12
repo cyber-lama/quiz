@@ -1,16 +1,16 @@
-import React from "react";
+import React, {FunctionComponent} from "react";
 import {GetStaticPaths, GetStaticProps, GetStaticPropsContext} from "next";
 import axios from "axios";
 import {WithMainLayout} from "../../layouts";
 import {PostItem} from "../../interfaces/post.interface";
 import {ParsedUrlQuery} from "querystring";
 
-const Post = ({post}:PostProps):JSX.Element => {
+const Post = ({post}:PostProps) => {
     if(!post) return <p>Ожидайте загрузки</p>;
     return (
        <>
-           <p>{post?.title}</p>
-           <p>{post?.body}</p>
+           <p>{post.title}</p>
+           <p>{post.body}</p>
        </>
     );
 };
