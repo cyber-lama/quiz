@@ -56,7 +56,7 @@ func (a *App) Run() {
 // Init a function that initializes
 //all the important components of the application:
 //routing, configuration from the env file,
-//routing and processing http requests,
+//processing http requests,
 //connecting to the database
 func Init() (*App, error) {
 	// Get var from .env

@@ -4,7 +4,7 @@ import {WithMainLayout} from "../layouts";
 import {GetStaticProps} from "next";
 import axios from "axios";
 import {MenuItem} from "../interfaces/menu.interface";
-
+type aa = { [key: string]: number | string }
 const Home = ({menu}:HomeProps):JSX.Element => {
     // const [menuState, setMenuState] = useState<MenuItem[]>();
     // useEffect(() => {
