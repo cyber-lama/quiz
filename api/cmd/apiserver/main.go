@@ -16,7 +16,7 @@ func init() {
 }
 
 func main() {
-	_, err := server.Init()
+	s, err := server.Init()
 	if err != nil {
 		if errors.As(err, &exceptions.ConnectionDBErr{}) {
 			log.Fatal(err.Error())
@@ -24,4 +24,6 @@ func main() {
 			log.Fatalf("Application initialization error %s", err)
 		}
 	}
+
+	s.Run()
 }
