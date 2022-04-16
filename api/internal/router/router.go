@@ -99,6 +99,7 @@ func (r *Router) respond(w http.ResponseWriter, req *http.Request, code int, dat
 }
 
 func (r *Router) handleUsersCreate() func(http.ResponseWriter, *http.Request) {
+	//b := basecontroller.New()
 	return func(w http.ResponseWriter, req *http.Request) {
 		r.respond(w, req, http.StatusCreated, "test")
 	}

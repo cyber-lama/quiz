@@ -1,11 +1,9 @@
 package basecontroller
 
-import (
-	"net/http"
-)
+import "net/http"
 
 type Repository interface {
-	Respond[D any](w http.ResponseWriter, code int, data []D)
-	Message[D any](w http.ResponseWriter, code int, data []D)
-	Error(w http.ResponseWriter, code int, err error)
+	Respond(w http.ResponseWriter, code int, data interface{})
+	Message(w http.ResponseWriter, code int, data interface{})
+	Error(w http.ResponseWriter, code int, err map[string]error)
 }
