@@ -15,8 +15,17 @@ func init() {
 }
 
 func main() {
+	var err error
+	var app *server.App
+
 	c := config.Init()
-	_, err := server.NewApp(c)
+
+	app, err = server.NewApp(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = app.Run(c.Port)
 	if err != nil {
 		log.Fatal(err)
 	}

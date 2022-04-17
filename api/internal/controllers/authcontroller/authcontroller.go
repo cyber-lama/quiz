@@ -2,7 +2,7 @@ package authcontroller
 
 import (
 	"api/internal/models/usermodel"
-	"context"
+	"net/http"
 )
 
 type AuthController struct {
@@ -13,12 +13,16 @@ func NewAuthController(u usermodel.Repository) *AuthController {
 	return &AuthController{userModel: u}
 }
 
-func (c AuthController) CreateUser(ctx context.Context) error {
-	return nil
+func (c AuthController) SignUp() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+
+	}
 }
-func (c AuthController) GetUsers(ctx context.Context, user *usermodel.User) ([]*usermodel.User, error) {
-	return nil, nil
+func (c AuthController) SignIn() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+
+	}
 }
-func (c AuthController) DeleteUser(ctx context.Context, user *usermodel.User, id string) error {
+func (c AuthController) ParseToken(token string) error {
 	return nil
 }

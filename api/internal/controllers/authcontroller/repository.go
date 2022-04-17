@@ -1,12 +1,11 @@
 package authcontroller
 
 import (
-	"api/internal/models/usermodel"
-	"context"
+	"net/http"
 )
 
 type Repository interface {
-	CreateUser(ctx context.Context) error
-	GetUsers(ctx context.Context, user *usermodel.User) ([]*usermodel.User, error)
-	DeleteUser(ctx context.Context, user *usermodel.User, id string) error
+	SignUp() http.HandlerFunc
+	SignIn() http.HandlerFunc
+	ParseToken(token string) error
 }
