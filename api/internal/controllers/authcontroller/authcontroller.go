@@ -18,6 +18,14 @@ func (c AuthController) SignUp() http.HandlerFunc {
 
 	}
 }
+func (c AuthController) SignUpShort() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		_, err := c.userModel.CreateUserShort()
+		if err != nil {
+			return
+		}
+	}
+}
 func (c AuthController) SignIn() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 

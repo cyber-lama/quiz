@@ -3,7 +3,6 @@ package usermodel
 import (
 	"api/internal/database"
 	"api/internal/logger"
-	"context"
 	"database/sql"
 	"time"
 )
@@ -30,9 +29,12 @@ func NewUserRepository(db *database.Database, log *logger.Logger) *UserRepositor
 	}
 }
 
-func (c UserRepository) CreateUser(ctx context.Context, user *User) error {
+func (c UserRepository) CreateUser(user *User) error {
 	return nil
 }
-func (c UserRepository) GetUsers(ctx context.Context, user *User) ([]*User, error) {
+func (c UserRepository) CreateUserShort() (*User, error) {
+	return nil, nil
+}
+func (c UserRepository) GetUsers(user *User) ([]*User, error) {
 	return nil, nil
 }

@@ -141,4 +141,5 @@ func (a *App) configureRouter() {
 	a.router.Use(a.setRequestID)
 	a.router.Use(a.logRequest)
 	a.router.HandleFunc("/registration", a.authCR.SignUp()).Methods("POST")
+	a.router.HandleFunc("/registration-short", a.authCR.SignUpShort()).Methods("POST")
 }
