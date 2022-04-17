@@ -1,7 +1,6 @@
 package database
 
 import (
-	"api/internal/exceptions"
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
@@ -14,13 +13,11 @@ type Database struct {
 }
 
 func Connect(DBUrl string) (*Database, error) {
-	// цикл подключения к БД. Пытаемся 3 раза, если не удалось подсоединиться с первого раза.
 	var err error
 	var db *sqlx.DB
 	tries := 0
 	for {
 		if tries > 2 {
-			err = exceptions.NewConnectionErr(err)
 			return nil, err
 		}
 		db, err = sqlx.Connect("postgres", DBUrl)
