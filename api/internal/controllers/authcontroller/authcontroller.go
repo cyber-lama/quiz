@@ -6,10 +6,10 @@ import (
 )
 
 type AuthController struct {
-	userModel usermodel.Repository
+	userModel usermodel.IUser
 }
 
-func NewAuthController(u usermodel.Repository) *AuthController {
+func NewAuthController(u usermodel.IUser) *AuthController {
 	return &AuthController{userModel: u}
 }
 

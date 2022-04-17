@@ -22,7 +22,7 @@ type App struct {
 	log        *logger.Logger
 	router     *mux.Router
 
-	authCR authcontroller.Repository
+	authCR authcontroller.IAuth
 }
 
 func NewApp(conf *config.Config) (*App, error) {
