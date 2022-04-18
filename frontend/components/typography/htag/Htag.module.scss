@@ -1,7 +1,8 @@
+@use "../../../styles/global/variables" as v;
+@use "../../../styles/global/mixins";
+
 .h1 {
-	font-size: 26px;
-	font-weight: 500;
-	line-height: 35px;
+	@include mixins.h1-title(v.$mobile-max, var(--primary));
 }
 
 .h2 {

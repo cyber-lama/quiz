@@ -19,8 +19,9 @@ type User struct {
 }
 
 type UserRepository struct {
-	db  *database.Database
-	log *logger.Logger
+	user *User
+	db   *database.Database
+	log  *logger.Logger
 }
 
 func NewUserRepository(db *database.Database, log *logger.Logger) *UserRepository {
@@ -30,24 +31,32 @@ func NewUserRepository(db *database.Database, log *logger.Logger) *UserRepositor
 	}
 }
 
-func (r UserRepository) CreateUser(user *User) error {
+func (u UserRepository) CreateUser(user *User) error {
 	return nil
 }
-func (r UserRepository) CreateUserShort() (*User, error) {
-	u := &User{
+func (u UserRepository) CreateUserShort() (*User, error) {
+	u.user = &User{
 		CreatedAt: helpers.TimeNow(),
 		UpdatedAt: helpers.TimeNow(),
 	}
 	// Create User
-	err := r.db.QueryRow(`
+	err := u.db.QueryRow(`
 		INSERT INTO users (email, password, created_at, updated_at) VALUES ($1, $2, $3, $4) returning id
-	`, u.Email, u.Password, u.CreatedAt, u.UpdatedAt).Scan(&u.ID)
-
+	`, u.user.Email, u.user.Password, u.user.CreatedAt, u.user.UpdatedAt).Scan(&u.user.ID)
 	if err != nil {
 		return nil, err
 	}
-	return u, nil
+
+	err = u.CreateUserToken()
+	if err != nil {
+		return nil, err
+	}
+	return u.user, nil
 }
-func (r UserRepository) GetUsers(user *User) ([]*User, error) {
+func (u UserRepository) GetUsers(user *User) ([]*User, error) {
 	return nil, nil
+}
+
+func (u UserRepository) CreateUserToken() error {
+	return nil
 }

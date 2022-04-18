@@ -1,0 +1,15 @@
+@use "./variables" as v;
+
+@mixin h1-title($adaptive, $color) {
+	font-weight: normal;
+	font-size: if($adaptive, v.$fs32, v.$fs36);
+	line-height: if($adaptive, v.$lh37, v.$lh42);
+	text-align: center;
+	color: $color;
+	letter-spacing: 0;
+
+	@media (min-width: v.$tablet) {
+		font-size: v.$fs36;
+		line-height: v.$lh42;
+	}
+}
