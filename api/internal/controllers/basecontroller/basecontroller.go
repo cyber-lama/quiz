@@ -8,7 +8,7 @@ import (
 type BaseController struct {
 }
 
-func New() *BaseController {
+func NewBaseController() *BaseController {
 	return &BaseController{}
 }
 

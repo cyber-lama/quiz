@@ -1,15 +1,17 @@
 package authcontroller
 
 import (
+	"api/internal/controllers/basecontroller"
 	"api/internal/models/usermodel"
 	"net/http"
 )
 
 type AuthController struct {
+	baseCR    basecontroller.IBase
 	userModel usermodel.IUser
 }
 
-func NewAuthController(u usermodel.IUser) *AuthController {
+func NewAuthController(u usermodel.IUser, b basecontroller.IBase) *AuthController {
 	return &AuthController{userModel: u}
 }
 
@@ -20,10 +22,11 @@ func (c AuthController) SignUp() http.HandlerFunc {
 }
 func (c AuthController) SignUpShort() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		_, err := c.userModel.CreateUserShort()
+		res, err := c.userModel.CreateUserShort()
 		if err != nil {
-			return
+			c.baseCR.Error(w, http.StatusBadRequest, err)
 		}
+		c.baseCR.Message(w, http.StatusOK, res)
 	}
 }
 func (c AuthController) SignIn() http.HandlerFunc {

@@ -3,6 +3,7 @@ package server
 import (
 	"api/internal/config"
 	"api/internal/controllers/authcontroller"
+	"api/internal/controllers/basecontroller"
 	"api/internal/database"
 	"api/internal/logger"
 	"api/internal/models/usermodel"
@@ -37,12 +38,14 @@ func NewApp(conf *config.Config) (*App, error) {
 	r := mux.NewRouter()
 	// init models
 	u := usermodel.NewUserRepository(db, log)
+	//init basecontroller
+	b := basecontroller.NewBaseController()
 	// init controllers
 	app := &App{
 		log:    log,
 		router: r,
 
-		authCR: authcontroller.NewAuthController(u),
+		authCR: authcontroller.NewAuthController(u, b),
 	}
 	return app, nil
 }
