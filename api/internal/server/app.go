@@ -112,8 +112,8 @@ func (a *App) logRequest(next http.Handler) http.Handler {
 			payload = r.URL.Query().Encode()
 		}
 
-		log.Infof("--------------------------------")
-		log.Infof("started %s %s, with payload: %s",
+		log.Trace("--------------------------------")
+		log.Tracef("started %s %s, with payload: %s",
 			r.Method, r.RequestURI, payload)
 
 		start := time.Now()
@@ -128,7 +128,7 @@ func (a *App) logRequest(next http.Handler) http.Handler {
 		case rw.code >= 400:
 			level = logrus.WarnLevel
 		default:
-			level = logrus.InfoLevel
+			level = logrus.TraceLevel
 		}
 		log.Logf(
 			level,
@@ -137,7 +137,7 @@ func (a *App) logRequest(next http.Handler) http.Handler {
 			http.StatusText(rw.code),
 			time.Now().Sub(start),
 		)
-		log.Infof("--------------------------------")
+		log.Trace("--------------------------------")
 	})
 }
 

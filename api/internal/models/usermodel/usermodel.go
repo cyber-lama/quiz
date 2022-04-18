@@ -5,6 +5,8 @@ import (
 	"api/internal/helpers"
 	"api/internal/logger"
 	"database/sql"
+	"fmt"
+	"github.com/google/uuid"
 	"time"
 )
 
@@ -47,7 +49,7 @@ func (u UserRepository) CreateUserShort() (*User, error) {
 		return nil, err
 	}
 
-	err = u.CreateUserToken()
+	err = u.BuildUserToken()
 	if err != nil {
 		return nil, err
 	}
@@ -57,6 +59,8 @@ func (u UserRepository) GetUsers(user *User) ([]*User, error) {
 	return nil, nil
 }
 
-func (u UserRepository) CreateUserToken() error {
+func (u UserRepository) BuildUserToken() error {
+	token := fmt.Sprintf("%d|%s", u.user.ID, uuid.New().String())
+	u.log.Info(token)
 	return nil
 }
