@@ -117,6 +117,7 @@ func (a *App) logRequest(next http.Handler) http.Handler {
 			r.Method, r.RequestURI, payload)
 
 		start := time.Now()
+		//TODO это должен быть мидлвар
 		rw := &responseWriter{w, http.StatusOK}
 		next.ServeHTTP(rw, r)
 

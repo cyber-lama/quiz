@@ -2,6 +2,7 @@ package usermodel
 
 import (
 	"api/internal/database"
+	"api/internal/helpers"
 	"api/internal/logger"
 	"database/sql"
 	"time"
@@ -10,8 +11,8 @@ import (
 type User struct {
 	ID        uint            `json:"id"`
 	Username  *sql.NullString `json:"username,omitempty"`
-	Password  string          `json:"-"`
-	Email     string          `json:"email"`
+	Password  *sql.NullString `json:"-"`
+	Email     *sql.NullString `json:"email,omitempty"`
 	CreatedAt time.Time       `json:"created_at"`
 	UpdatedAt time.Time       `json:"updated_at"`
 	Token     string          `json:"token"`
@@ -29,12 +30,24 @@ func NewUserRepository(db *database.Database, log *logger.Logger) *UserRepositor
 	}
 }
 
-func (c UserRepository) CreateUser(user *User) error {
+func (r UserRepository) CreateUser(user *User) error {
 	return nil
 }
-func (c UserRepository) CreateUserShort() (*User, error) {
-	return nil, nil
+func (r UserRepository) CreateUserShort() (*User, error) {
+	u := &User{
+		CreatedAt: helpers.TimeNow(),
+		UpdatedAt: helpers.TimeNow(),
+	}
+	// Create User
+	err := r.db.QueryRow(`
+		INSERT INTO users (email, password, created_at, updated_at) VALUES ($1, $2, $3, $4) returning id
+	`, u.Email, u.Password, u.CreatedAt, u.UpdatedAt).Scan(&u.ID)
+
+	if err != nil {
+		return nil, err
+	}
+	return u, nil
 }
-func (c UserRepository) GetUsers(user *User) ([]*User, error) {
+func (r UserRepository) GetUsers(user *User) ([]*User, error) {
 	return nil, nil
 }

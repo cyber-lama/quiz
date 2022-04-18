@@ -12,7 +12,7 @@ type AuthController struct {
 }
 
 func NewAuthController(u usermodel.IUser, b basecontroller.IBase) *AuthController {
-	return &AuthController{userModel: u}
+	return &AuthController{userModel: u, baseCR: b}
 }
 
 func (c AuthController) SignUp() http.HandlerFunc {
@@ -25,6 +25,7 @@ func (c AuthController) SignUpShort() http.HandlerFunc {
 		res, err := c.userModel.CreateUserShort()
 		if err != nil {
 			c.baseCR.Error(w, http.StatusBadRequest, err)
+			return
 		}
 		c.baseCR.Message(w, http.StatusOK, res)
 	}
