@@ -3,6 +3,7 @@ import {MainLayoutProps} from "./MainLayout.props";
 import {SideBar} from "../sideBar/SideBar";
 import {Header} from "../header/Header";
 import {Footer} from "../footer/Footer";
+import {AppContextProvider, IAppContext} from "../../contexts/app.context";
 
 const MainLayout = ({children}: MainLayoutProps) => {
     return (
@@ -19,13 +20,16 @@ const MainLayout = ({children}: MainLayoutProps) => {
     );
 };
 
-export const WithMainLayout =<T extends Record<string, unknown>> (Component: FunctionComponent<T>) => {
+export const WithMainLayout =<T extends Record<string, unknown> & IAppContext> (Component: FunctionComponent<T>) => {
 
     return function WithMainLayoutComponent(props: T):JSX.Element{
         return (
-            <MainLayout>
-                <Component {...props}/>;
-            </MainLayout>
+            <AppContextProvider menu={props.menu} firstCategory={props.firstCategory}>
+                <MainLayout>
+                    <Component {...props}/>;
+                </MainLayout>
+            </AppContextProvider>
+
         );
     };
 };

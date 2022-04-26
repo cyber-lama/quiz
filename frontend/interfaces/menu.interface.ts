@@ -1,29 +1,20 @@
+export interface PageItem {
+    alias: string;
+    title: string;
+    id: number;
+    category: string;
+}
+
 export interface MenuItem {
-    id:       number;
-    name:     string;
-    username: string;
-    email:    string;
-    address:  Address;
-    phone:    string;
-    website:  string;
-    company:  Company;
+    id: number
+    isOpened?: boolean;
+    pages: PageItem[];
 }
 
-export interface Address {
-    street:  string;
-    suite:   string;
-    city:    string;
-    zipcode: string;
-    geo:     Geo;
-}
 
-export interface Geo {
-    lat: string;
-    lng: string;
-}
-
-export interface Company {
-    name:        string;
-    catchPhrase: string;
-    bs:          string;
+export enum TopLevelCategory {
+    Test,
+    Test1,
+    Test2,
+    Test3
 }
