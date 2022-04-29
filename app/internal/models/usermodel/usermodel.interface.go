@@ -1,6 +1,6 @@
 package usermodel
 
-import "api/internal/database"
+import "app/internal/database"
 
 type IUser interface {
 	CreateUser(user *User) error

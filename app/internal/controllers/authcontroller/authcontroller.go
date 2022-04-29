@@ -1,8 +1,8 @@
 package authcontroller
 
 import (
-	"api/internal/controllers/basecontroller"
-	"api/internal/models/usermodel"
+	"app/internal/controllers/basecontroller"
+	"app/internal/models/usermodel"
 	"net/http"
 )
 

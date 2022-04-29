@@ -1,24 +1,42 @@
-import {MenuItem} from "../interfaces/menu.interface";
-
-const menuItems: MenuItem[] = [{
-    id: 0,
-    isOpened: false,
-    pages: [{
-        alias: "test-subtitle",
-        title: "Тестовый подзаголовок",
-        id: 0,
-        category: "Test"
-    },{
-        alias: "test-subtitle1",
-        title: "Тестовый подзаголовок 1",
-        id: 1,
-        category: "Test"
-    },{
-        alias: "test-subtitle2",
-        title: "Тестовый подзаголовок2",
-        id: 2,
-        category: "Test"
-    }]
-}];
+const menuItems = [
+        {
+            "id": {
+                "mainCategory" : "О компании"
+            },
+            "pages": [
+                {
+                    "alias": "contacts",
+                    "title": "Наши контакты",
+                    "id": 0,
+                    "category": "Контакты"
+                }
+                ,{
+                    "alias": "documentation",
+                    "title": "Документация",
+                    "id": 1,
+                    "category": "Документация"
+                }
+            ]
+        },
+        {
+            "id": {
+                "mainCategory" : "Клиентам"
+            },
+            "pages": [
+                {
+                    "alias": "personal-area",
+                    "title": "Личный кабинет",
+                    "id": 2,
+                    "category": "Личный кабинет"
+                }
+                ,{
+                    "alias": "questions-and-answers",
+                    "title": "Вопросы и ответы",
+                    "id": 3,
+                    "category": "Вопросы и ответы"
+                }
+            ]
+        }
+];
 
 export default menuItems;

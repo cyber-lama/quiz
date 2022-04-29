@@ -12,19 +12,19 @@ services:
     networks:
       - docker-network
 
-  api:
+  app:
     build:
-      context: ./api
+      context: ./app
       dockerfile: Dockerfile
       args:
         docker_id: ${DOCKER_UID}
         docker_user: ${DOCKER_USER}
-    container_name: docker-api
+    container_name: docker-app
     user: ${DOCKER_USER}
     ports:
       - "2345:2345"
     volumes:
-      - ./api:/usr/src/app
+      - ./app:/usr/src/app
       - ${GOPATH}/pkg:/go/pkg
     command: air -c .air.toml && migrate && seeder
     links:
@@ -58,8 +58,8 @@ services:
       - ./nginx/nginx.conf.prod:/etc/nginx/conf.d/nginx.conf
     depends_on:
       - frontend
-      - api
-      - api_db
+      - app
+      - db
     networks:
       - docker-network
 

@@ -14,7 +14,7 @@ type Config struct {
 
 func Init() *Config {
 	return &Config{
-		Port:     fmt.Sprintf(":%s", os.Getenv("API_PORT")),
+		Port:     fmt.Sprintf(":%s", os.Getenv("APP_PORT")),
 		LogLevel: os.Getenv("LOG_LEVEL"),
 		TTL:      os.Getenv("TTL"),
 		DBUrl: fmt.Sprintf("postgres://%v:%v@%v:%v/%v?sslmode=disable",

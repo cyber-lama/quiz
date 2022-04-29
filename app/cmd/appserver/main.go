@@ -1,8 +1,9 @@
 package main
 
 import (
-	"api/internal/config"
-	"api/internal/server"
+	"app/internal/config"
+	"app/internal/server"
+	"fmt"
 	"github.com/joho/godotenv"
 	"log"
 )
@@ -19,7 +20,7 @@ func main() {
 	var app *server.App
 
 	c := config.Init()
-
+	fmt.Println(c)
 	app, err = server.NewApp(c)
 	if err != nil {
 		log.Fatal(err)

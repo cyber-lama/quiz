@@ -1,9 +1,9 @@
 package usermodel
 
 import (
-	"api/internal/database"
-	"api/internal/helpers"
-	"api/internal/logger"
+	"app/internal/database"
+	"app/internal/helpers"
+	"app/internal/logger"
 	"database/sql"
 	"fmt"
 	"github.com/google/uuid"

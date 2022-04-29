@@ -1,16 +1,16 @@
-export interface PageItem {
-    alias: string;
-    title: string;
-    id: number;
-    category: string;
-}
-
 export interface MenuItem {
-    id: number
-    isOpened?: boolean;
+    id: {
+        mainCategory: string;
+    }
     pages: PageItem[];
 }
 
+export interface PageItem {
+    alias:    string;
+    title:    string;
+    id:       number;
+    category: string;
+}
 
 export enum TopLevelCategory {
     Test,

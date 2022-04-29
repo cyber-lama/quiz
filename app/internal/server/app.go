@@ -1,12 +1,12 @@
 package server
 
 import (
-	"api/internal/config"
-	"api/internal/controllers/authcontroller"
-	"api/internal/controllers/basecontroller"
-	"api/internal/database"
-	"api/internal/logger"
-	"api/internal/models/usermodel"
+	"app/internal/config"
+	"app/internal/controllers/authcontroller"
+	"app/internal/controllers/basecontroller"
+	"app/internal/database"
+	"app/internal/logger"
+	"app/internal/models/usermodel"
 	"context"
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"

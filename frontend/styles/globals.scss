@@ -1,12 +1,14 @@
+@use "./global/typography" as t;
+
 html,
 body {
+	position: relative;
+	width: 100%;
+	max-width: 100%;
+	overflow-x: hidden;
 	padding: 0;
 	margin: 0;
-	color: var(--black);
-	background: #F5F6F8;
-	font-family:
-		Roboto,
-		sans-serif;
+	font-family: t.$roboto-regular-font;
 }
 
 a {
@@ -30,5 +32,6 @@ a {
 	--red: #FC836D;
 	--green: #007B48;
 	--green-light: #C8F8E4;
-	--font-family: roboto, sans-serif;
+	--main-background-light: #FFFAFA;
+	--main-background-dark: #2F4F4F;
 }

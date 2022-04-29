@@ -24,9 +24,9 @@ export const WithMainLayout =<T extends Record<string, unknown> & IAppContext> (
 
     return function WithMainLayoutComponent(props: T):JSX.Element{
         return (
-            <AppContextProvider menu={props.menu} firstCategory={props.firstCategory}>
+            <AppContextProvider theme={props.theme}>
                 <MainLayout>
-                    <Component {...props}/>;
+                    <Component {...props}/>
                 </MainLayout>
             </AppContextProvider>
 

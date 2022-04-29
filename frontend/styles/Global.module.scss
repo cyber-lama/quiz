@@ -1,0 +1,11 @@
+.html {
+	&__light {
+		background-color: var(--main-background-light);
+		color: var(--black);
+	}
+
+	&__dark {
+		background-color: var(--main-background-dark);
+		color: var(--white);
+	}
+}

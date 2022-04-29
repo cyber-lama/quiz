@@ -3,6 +3,6 @@ import {MenuProps} from "./Menu.props";
 
 export const Menu = ({...props}: MenuProps) => {
     return (
-       <div {...props}>Footer</div>
+       <section {...props}>Menu</section>
     );
 };

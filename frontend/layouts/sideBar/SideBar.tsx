@@ -3,6 +3,6 @@ import {SideBarProps} from "./SideBar.props";
 
 export const SideBar = ({...props}: SideBarProps) => {
     return (
-       <div {...props}>SideBar</div>
+       <section {...props}>SideBar</section>
     );
 };

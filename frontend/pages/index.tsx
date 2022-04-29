@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import {Button, Htag, Ptag, Rating, Tag} from "../components";
 import {WithMainLayout} from "../layouts";
 import {GetStaticProps} from "next";
-import axios from "axios";
-import {UserItem} from "../interfaces/user.interface";
+import {MenuItem} from "../interfaces/menu.interface";
+import menuItems from "../mocks/menu.mock";
 
-const Home = ({users}:HomeProps):JSX.Element => {
+const Home = ({menu}:HomeProps):JSX.Element => {
     // const [menuState, setMenuState] = useState<MenuItem[]>();
     // useEffect(() => {
     //     axios.get('https://jsonplaceholder.typicode.com/users').then(res => {
@@ -37,7 +37,7 @@ const Home = ({users}:HomeProps):JSX.Element => {
             <Rating isEditable rating={state} setRating={setState}/>
 
             <ul className={'test-sp'}>
-                {users?.map(item => <li key={item.id}>{item.name}</li>)}
+                {menu?.map((item, index) => <li key={index}>{item.id.mainCategory}</li>)}
             </ul>
         </>
     );
@@ -46,14 +46,15 @@ const Home = ({users}:HomeProps):JSX.Element => {
 export default WithMainLayout(Home);
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-    const { data: users } = await axios.get<UserItem[]>("https://jsonplaceholder.typicode.com/users");
+    // mock
+    const menu: MenuItem[] = menuItems;
     return {
         props: {
-            users
+            menu
         }
     };
 };
 
 interface HomeProps extends Record<string, unknown> {
-    users: UserItem[];
+    menu: MenuItem[];
 }

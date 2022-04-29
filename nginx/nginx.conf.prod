@@ -6,8 +6,8 @@ server{
     location / {
         proxy_pass http://frontend:3000;
     }
-    location /api {
-            proxy_pass http://api:3001;
-            rewrite ^/api/(.*) /$1 break;
+    location /app {
+            proxy_pass http://app:3001;
+            rewrite ^/app/(.*) /$1 break;
     }
 }

@@ -1,7 +1,7 @@
 package usermodel
 
 import (
-	"api/internal/database"
+	"app/internal/database"
 	"time"
 )
 
