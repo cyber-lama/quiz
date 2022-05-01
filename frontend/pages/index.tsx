@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Button, Htag, Ptag, Rating, Tag} from "../components";
 import {WithMainLayout} from "../layouts";
 import {GetStaticProps} from "next";
 import {MenuItem} from "../interfaces/menu.interface";
 import menuItems from "../mocks/menu.mock";
+import {ThemeContext} from "../contexts/theme.context";
 
 const Home = ({menu}:HomeProps):JSX.Element => {
     // const [menuState, setMenuState] = useState<MenuItem[]>();

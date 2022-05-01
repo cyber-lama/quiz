@@ -1,22 +1,25 @@
 import '../styles/globals.scss';
 import {AppProps} from "next/dist/shared/lib/router/router";
-import React from 'react';
+import React, {useContext} from 'react';
 import "@fontsource/roboto";
-import {ThemeContextProvider} from "../contexts/theme.context";
 import cn from "classnames";
 import styles from "../styles/Global.module.scss";
+import {WithThemeLayout} from "../layouts/themeLayout/ThemeLayout";
+import {useTheme} from "@emotion/react";
+import {ThemeContext} from "../contexts/theme.context";
 
 function MyApp({ Component, pageProps }: AppProps):JSX.Element {
+  const {theme} = useContext(ThemeContext);
+
   return <>
-      <ThemeContextProvider theme="light">
-          <title>
-              Онлайн тестирование
-          </title>
-          <div className={cn(styles.html__light)}>
-              <Component  {...pageProps} />
-          </div>
-      </ThemeContextProvider>
+      <div className={cn(styles.wrapper, {
+          [styles.wrapper__light]: theme === 'light',
+          [styles.wrapper__dark]: theme === 'dark'
+      })}>
+        <Component  {...pageProps} />
+      </div>
+
   </>;
 }
 
-export default MyApp;
+export default WithThemeLayout(MyApp);

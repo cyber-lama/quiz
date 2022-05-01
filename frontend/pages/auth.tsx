@@ -1,8 +1,9 @@
-import React from "react";
-import {WithMainLayout} from "../layouts";
+import React, {useContext} from "react";
+import {ThemeContext} from "../contexts/theme.context";
 
 const Auth = ():JSX.Element => {
-    return <p>test</p>;
+    const {setTheme} = useContext(ThemeContext);
+    return <p onClick={() => setTheme && setTheme()}>test</p>;
 };
 
-export default WithMainLayout(Auth);
+export default Auth;

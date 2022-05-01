@@ -24,12 +24,9 @@ export const WithMainLayout =<T extends Record<string, unknown> & IAppContext> (
 
     return function WithMainLayoutComponent(props: T):JSX.Element{
         return (
-            <AppContextProvider theme={props.theme}>
                 <MainLayout>
                     <Component {...props}/>
                 </MainLayout>
-            </AppContextProvider>
-
         );
     };
 };
