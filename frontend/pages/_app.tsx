@@ -5,13 +5,16 @@ import "@fontsource/roboto";
 import cn from "classnames";
 import styles from "../styles/Global.module.scss";
 import {WithThemeLayout} from "../layouts/themeLayout/ThemeLayout";
-import {useTheme} from "@emotion/react";
 import {ThemeContext} from "../contexts/theme.context";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps):JSX.Element {
   const {theme} = useContext(ThemeContext);
 
   return <>
+      <Head>
+          <title>Онлайн тестирование</title>
+      </Head>
       <div className={cn(styles.wrapper, {
           [styles.wrapper__light]: theme === 'light',
           [styles.wrapper__dark]: theme === 'dark'

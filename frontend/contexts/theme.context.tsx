@@ -1,5 +1,6 @@
-import {createContext, PropsWithChildren, useState} from 'react';
+import {createContext, PropsWithChildren, useEffect, useLayoutEffect, useState} from 'react';
 import {ThemeProvider} from "@emotion/react";
+import {getLocalStorage, setLocalStorage} from "../helpers/localstorage.helper";
 
 export type ITheme = "light" | "dark";
 
@@ -12,8 +13,20 @@ export const ThemeContext = createContext<IThemeContext>({ theme: "light"});
 
 export const ThemeContextProvider = ({ theme, children }: PropsWithChildren<IThemeContext>): JSX.Element => {
     const [themeState, setThemeState] = useState<ITheme>(theme);
+    // если в LocalStorage нет темы по дефолту добавляем туда light
+    // иначе меням
+    useLayoutEffect(() => {
+        if(!getLocalStorage('theme')){
+            setLocalStorage('theme', 'light');
+        }else{
+            setThemeState(getLocalStorage('theme'));
+        }
+    },[]);
+
     const setTheme = () => {
-        setThemeState(themeState === 'light'? 'dark' : 'light');
+        const newTheme = themeState === 'light' ? 'dark' : 'light';
+        setLocalStorage('theme', newTheme);
+        setThemeState(newTheme);
     };
     const themes = {
         light: {
