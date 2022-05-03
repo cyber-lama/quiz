@@ -15,7 +15,7 @@ export const ThemeContextProvider = ({ theme, children }: PropsWithChildren<IThe
     const [themeState, setThemeState] = useState<ITheme>(theme);
     // если в LocalStorage нет темы по дефолту добавляем туда light
     // иначе меням
-    useLayoutEffect(() => {
+    useEffect(() => {
         if(!getLocalStorage('theme')){
             setLocalStorage('theme', 'light');
         }else{

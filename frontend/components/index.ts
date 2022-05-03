@@ -3,3 +3,4 @@ export * from "./typography/ptag/Ptag";
 export * from "./button/Button";
 export * from "./tag/Tag";
 export * from "./rating/Rating";
+export * from "./toggle/Toggle";

@@ -3,7 +3,7 @@ import {MainLayoutProps} from "./MainLayout.props";
 import {SideBar} from "../sideBar/SideBar";
 import {Header} from "../header/Header";
 import {Footer} from "../footer/Footer";
-import {AppContextProvider, IAppContext} from "../../contexts/app.context";
+import {IAppContext} from "../../contexts/app.context";
 
 const MainLayout = ({children}: MainLayoutProps) => {
     return (

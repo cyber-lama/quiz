@@ -2,11 +2,11 @@ import '../styles/globals.scss';
 import {AppProps} from "next/dist/shared/lib/router/router";
 import React, {useContext} from 'react';
 import "@fontsource/roboto";
-import cn from "classnames";
-import styles from "../styles/Global.module.scss";
+import styles from "../styles/App.module.scss";
 import {WithThemeLayout} from "../layouts/themeLayout/ThemeLayout";
 import {ThemeContext} from "../contexts/theme.context";
 import Head from "next/head";
+import cn from "classnames";
 
 function MyApp({ Component, pageProps }: AppProps):JSX.Element {
   const {theme} = useContext(ThemeContext);

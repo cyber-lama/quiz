@@ -1,0 +1,20 @@
+.switch {
+     width: 40px;
+     height: 25px;
+     background-color: black;
+     display: flex;
+     justify-content: flex-start;
+     border-radius: 50px;
+     padding: 5px;
+     cursor: pointer;
+  &__on {
+     justify-content: flex-end;
+   }
+}
+
+.handle {
+  width: 15px;
+  height: 15px;
+  background-color: white;
+  border-radius: 40px;
+}

@@ -1,9 +1,12 @@
 import React, {useContext} from "react";
 import {ThemeContext} from "../contexts/theme.context";
+import {Toggle} from "../components";
 
 const Auth = ():JSX.Element => {
-    const {setTheme} = useContext(ThemeContext);
-    return <p onClick={() => setTheme && setTheme()}>test</p>;
+    const {theme, setTheme} = useContext(ThemeContext);
+    return (
+        <Toggle active={theme === 'light'} onClick={() => setTheme && setTheme()}/>
+    );
 };
 
 export default Auth;

@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {Button, Htag, Ptag, Rating, Tag} from "../components";
+import {Button, Htag, Ptag, Rating, Tag, Toggle} from "../components";
 import {WithMainLayout} from "../layouts";
 import {GetStaticProps} from "next";
 import {MenuItem} from "../interfaces/menu.interface";
