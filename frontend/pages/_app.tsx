@@ -7,18 +7,16 @@ import {WithThemeLayout} from "../layouts/themeLayout/ThemeLayout";
 import {ThemeContext} from "../contexts/theme.context";
 import Head from "next/head";
 import cn from "classnames";
+import {css, useTheme} from "@emotion/react";
 
 function MyApp({ Component, pageProps }: AppProps):JSX.Element {
-  const {theme} = useContext(ThemeContext);
-
+    const themes = useTheme()
+    console.log(themes)
   return <>
       <Head>
           <title>Онлайн тестирование</title>
       </Head>
-      <div className={cn(styles.wrapper, {
-          [styles.wrapper__light]: theme === 'light',
-          [styles.wrapper__dark]: theme === 'dark'
-      })}>
+      <div style={{background: themes.colors.background}} className={cn(styles.wrapper)}>
         <Component  {...pageProps} />
       </div>
 

@@ -1,4 +1,4 @@
-import {createContext, PropsWithChildren, useEffect, useLayoutEffect, useState} from 'react';
+import {createContext, PropsWithChildren, useEffect, useState} from 'react';
 import {ThemeProvider} from "@emotion/react";
 import {getLocalStorage, setLocalStorage} from "../helpers/localstorage.helper";
 

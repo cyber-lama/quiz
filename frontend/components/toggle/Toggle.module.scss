@@ -1,7 +1,9 @@
+@use "../../styles/global/variables" as v;
+
 .switch {
      width: 40px;
      height: 25px;
-     background-color: black;
+     background: rgba(v.$main-background-dark, 0.4);
      display: flex;
      justify-content: flex-start;
      border-radius: 50px;
@@ -9,6 +11,9 @@
      cursor: pointer;
   &__on {
      justify-content: flex-end;
+   }
+   &__dark{
+     background: rgba(v.$main-background-light, 0.4);
    }
 }
 
